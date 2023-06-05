@@ -1,0 +1,66 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+body{
+  background-color: bisque;
+}
+nav{
+  width: 80%;
+  min-height: 30px;
+  border: 1px solid rgb(0, 255, 0);
+  margin: 50px auto;
+  border-radius:30px;
+  text-decoration: none;
+  
+}
+.mainDisplay{
+  width: 80%;
+  min-height: 600px;
+  border: 1px solid rgb(255, 0, 0);
+  border-radius:30px;
+  margin: 50px auto;
+}
+ul li{
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px;
+  color: blue;
+  font-size: large;
+
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-float infinite 3s ease-in-out;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: rgb(112, 76, 182);
+}
+
+@keyframes App-logo-float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
