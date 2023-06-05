@@ -6,3 +6,18 @@ button{
     font-size: medium;
     margin: 15px;
 }
+.inputText{
+    width: 500px;
+    height: 30px;
+    font-size: 25px;
+
+  }
+  .buttonAddUser{
+    width: 80px;
+    height: 40px;
+    margin: 5px;
+    color: green;
+    font-size: 15px;
+    font-weight: bolder;
+  }
+  

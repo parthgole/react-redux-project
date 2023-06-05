@@ -27,14 +27,14 @@ function AddUser() {
           LocalStorage(UserLocalStorage)
           setInputName('')
         }
-        console.log('API',localStorage.getItem('UserLocalStorage'))
+        // console.log('API',localStorage.getItem('UserLocalStorage'))
       }
   return (
     <div>
       <span>Enter Name In API LIST</span>
       <br/><br/><br/>
-      <input type="text" value={inputName} onChange={(e)=>setInputName(e.target.value)}/>
-      <button onClick={()=>newUser(inputName)}>
+      <input className='inputText' type="text" value={inputName} onChange={(e)=>setInputName(e.target.value)}/>
+      <button className='buttonAddUser' onClick={()=>newUser(inputName)}>
       <Link to='/UserApiList'>
       AddUser
       </Link>
