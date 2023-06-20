@@ -1,40 +1,31 @@
-import {  useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import {API} from "./ApiService";
 import { Link,Route,Routes } from 'react-router-dom';
-import AddUser from "./AddUser";
+import {AddUser,GlobalStorage} from "./AddUser";
 import './Style.css'
 
 
 const UserApiList = () => {
+  let newUser=useContext(GlobalStorage)
   const [loading,setLoading]=useState(false);
-  function LocalStorage(UserLocalStorage) {
-    localStorage.setItem('UserLocalStorage', JSON.stringify(UserLocalStorage));
-  }
-  
-  const localStorageData = JSON.parse(
-    localStorage.getItem('UserLocalStorage')
-    );
-    
-    let UserLocalStorage =
-    localStorage.getItem('UserLocalStorage') !== null ? 
-    localStorageData : [];
-    
-    const [usersSlice,setUsersSlice]=useState(UserLocalStorage);
+ 
+    const [usersSlice,setUsersSlice]=useState([]);
     
      const onPageLoad=async()=>{
         setLoading(true)
         let userList=await API.getUsers()
         setLoading(false)
         let userList1={...userList};
-        const userList2= userList1.data.map((value,id)=>{
+        let userList2= userList1.data.map((value,id)=>{
             return value.name
         })
-         
-       UserLocalStorage=[...userList2]
-       LocalStorage(UserLocalStorage)        
-       setUsersSlice(UserLocalStorage)
+        // console.log('newUser',newUser)
+        userList2=[...userList2,...newUser]    
+       setUsersSlice(userList2)
       }
-      window.addEventListener('load', onPageLoad);
+      useEffect(()=>{
+        onPageLoad()
+      },[])
        
   return (
     <>

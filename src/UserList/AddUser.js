@@ -1,44 +1,34 @@
-import React,{useState} from 'react'
+import React,{useState,createContext} from 'react'
 import UserApiList from './UserApiList';
 import { Link,Route,Routes } from 'react-router-dom';
 import './Style.css'
 
+export let GlobalStorage=createContext([]);
 
-function AddUser() {
+export  function AddUser() {
+    const[newData,setNewData]=useState(GlobalStorage._currentValue2);
     const [inputName,setInputName]=useState('');
     const newUser=(name)=>{
-        function LocalStorage(UserLocalStorage) {
-          localStorage.setItem('UserLocalStorage', JSON.stringify(UserLocalStorage));
-        }
-        
-        const localStorageData = JSON.parse(
-          localStorage.getItem('UserLocalStorage')
-          );
-          
-        let UserLocalStorage =
-        localStorage.getItem('UserLocalStorage') !== null ? 
-        localStorageData : [];
-
         if(name===''){
           
         }else{
-          const newName1=[...UserLocalStorage,name]
-          UserLocalStorage=[...newName1]
-          LocalStorage(UserLocalStorage)
+          const newData1=[...newData,name]
+          setNewData(newData1)
+          GlobalStorage._currentValue2=[...GlobalStorage._currentValue2,name]
+          GlobalStorage=createContext([...GlobalStorage._currentValue2])
           setInputName('')
         }
-        // console.log('API',localStorage.getItem('UserLocalStorage'))
       }
   return (
     <div>
       <span>Enter Name In API LIST</span>
       <br/><br/><br/>
-      <input className='inputText' type="text" value={inputName} onChange={(e)=>setInputName(e.target.value)}/>
-      <button className='buttonAddUser' onClick={()=>newUser(inputName)}>
+      <input className='inputText' type="text" value={inputName} onChange={(e)=>setInputName(e.target.value)}/><br/><br/>
+      {inputName!==''?<button className='buttonAddUser' onClick={()=>newUser(inputName)}>
       <Link to='/UserApiList'>
       AddUser
       </Link>
-      </button>
+      </button>:<button className='buttonAddUser'>AddUser</button>}
       <br/><br/><br/>
        <Routes>
         <Route path='/UserApiList'  element={<UserApiList/>}/>
@@ -46,5 +36,3 @@ function AddUser() {
     </div>
   )
 }
-
-export default AddUser

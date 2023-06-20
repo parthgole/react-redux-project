@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Style.module.css'
 import { useSelector,useDispatch } from 'react-redux';
-import {addToDo,deleteToDo,updateToDo,markCompletedToDo} from './ToDoSlice';
+import {todoUpdate,itemName,addToDo,deleteToDo,updateToDo,markCompletedToDo} from './ToDoSlice';
 
 function ToDoList() {
-  const [item,setItem]=useState('')
-  const [newItem,setNewItem]=useState('')
 
   const todoList=useSelector((state)=>state.todo.value);
+  const todoItem=useSelector((state)=>state.todo.item);
+  const todoUpdateItem=useSelector((state)=>state.todo.todoUpdate);
+  // console.log('todoUpdateItem',todoUpdateItem)
+
   const dispatch=useDispatch();
   const addItem=()=>{
-    if(item===''){
+    if(todoItem===''){
 
     }else{
         dispatch(addToDo({id:new Date().getTime().toString(),
-            item:item,status:false})) 
-            setItem('')
+            item:todoItem,status:false})) 
+          dispatch(itemName(''))
     }
   }
   const change=(e,item)=>{
@@ -23,11 +25,12 @@ function ToDoList() {
     dispatch(markCompletedToDo({id:e.target.id,item:item,status:e.target.checked}))
     }
    const taskUpdate=(id)=>{
-        if(newItem===''){
+        if(todoUpdateItem===''){
 
         }else{
-        dispatch(updateToDo({id:id,item:newItem}))
-        setNewItem('')
+        dispatch(updateToDo({id:id,item:todoUpdateItem}))
+        dispatch(todoUpdate(''))
+
         }
    } 
    const deleteItem=(id)=>{
@@ -37,14 +40,14 @@ function ToDoList() {
   return (
     <div className={styles.AppTodo}>
        <div>
-      <input className={styles.inputText} type='text' placeholder='ADD-TO-ITEM....' 
-      value={item} 
-      onChange={(e)=>setItem(e.target.value)}/>
+       <input className={styles.inputText} type='text' placeholder='ADD-TO-ITEM....' 
+      value={todoItem}
+      onChange={(e)=>dispatch(itemName(e.target.value))}/>
       <button className={styles.button} onClick={addItem}>Add Item</button><br/><br/><br/>
 
-        <input className={styles.inputText} type='text' 
-        placeholder='Enter Value Where To UpdateItem And Click On That Update....' value={newItem}
-            onChange={(e)=>setNewItem(e.target.value)}
+      <input className={styles.inputText} type='text' 
+        placeholder='Enter Value Where To UpdateItem And Click On That Update....' value={todoUpdateItem}
+            onChange={(e)=>dispatch(todoUpdate(e.target.value))}
             /><br/>
        </div>
        <div className={styles.displayItem}>
@@ -66,7 +69,7 @@ function ToDoList() {
         <button className={styles.button} onClick={()=>taskUpdate(value.id)}>Update</button>
         <button className={styles.button} onClick={()=>deleteItem(value.id)}>Delete</button>
 
-        </div>
+        </div><br/>
         </>
         )
       })}

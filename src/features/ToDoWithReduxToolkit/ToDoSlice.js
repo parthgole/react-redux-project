@@ -2,8 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const todoSlice=createSlice({
     name:'todo',
-    initialState:{value:[]},
+    initialState:{value:[],item:'',todoUpdate:''},
     reducers:{
+        itemName:(state,action)=>{
+            state.item = action.payload
+        },
+        todoUpdate:(state,action)=>{
+            state.todoUpdate = action.payload
+        },
         addToDo:(state,action)=>{
            state.value.push(action.payload);     
         },
@@ -42,5 +48,5 @@ export const todoSlice=createSlice({
 })
 
 
-export const {addToDo,deleteToDo,updateToDo,markCompletedToDo}=todoSlice.actions;
+export const {itemName,todoUpdate,addToDo,deleteToDo,updateToDo,markCompletedToDo}=todoSlice.actions;
 export default todoSlice.reducer;
